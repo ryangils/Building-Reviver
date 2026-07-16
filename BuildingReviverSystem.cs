@@ -108,12 +108,10 @@ namespace BuildingReviver
                 // vanilla systems don't immediately abandon it again.
                 ResetCondition(entity);
 
-                // Put the property back on the rental market so new occupants move in.
-                if (!EntityManager.HasComponent<PropertyOnMarket>(entity) &&
-                    !EntityManager.HasComponent<PropertyToBeOnMarket>(entity))
-                {
-                    EntityManager.AddComponent<PropertyToBeOnMarket>(entity);
-                }
+                // Removing Abandoned is enough to re-list the property: PropertyRenterSystem
+                // markets any building that is neither abandoned nor destroyed and has free
+                // capacity, and it applies guards (Signature buildings, spare capacity) that
+                // this system would otherwise have to duplicate.
 
                 // Nudge the game to refresh the building's visuals and state.
                 if (!EntityManager.HasComponent<Updated>(entity))

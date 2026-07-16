@@ -38,7 +38,9 @@ Same flow as AutoBulldozer (see its `SHIPPING.md` for the detailed guide):
 
 ## How it works
 
-`BuildingReviverSystem` is an ECS system that runs during the simulation phase (1–64 sweeps per in-game day, configurable, default 16; no cost while paused or in menus). It queries buildings tagged `Abandoned` (excluding destroyed buildings, temporary tool previews, and already-deleted entities) and revives them: removes the `Abandoned` component, resets a negative `BuildingCondition` to zero (so the vanilla condition system doesn't immediately re-abandon it), and adds `PropertyToBeOnMarket` so the game's market systems list the property for new renters. An `Updated` tag nudges the game to refresh the building's visuals and state.
+`BuildingReviverSystem` is an ECS system that runs during the simulation phase (1–64 sweeps per in-game day, configurable, default 16; no cost while paused or in menus). It queries buildings tagged `Abandoned` (excluding destroyed buildings, temporary tool previews, and already-deleted entities) and revives them: removes the `Abandoned` component and resets a negative `BuildingCondition` to zero, so the vanilla condition system doesn't immediately re-abandon it. An `Updated` tag nudges the game to refresh the building's visuals and state.
+
+Re-listing the property is left to the game. `Game.Simulation.PropertyRenterSystem` markets any building that is neither abandoned nor destroyed and has free capacity, so clearing `Abandoned` is enough — and it applies guards (signature buildings, spare capacity) that this mod would otherwise have to duplicate.
 
 Because it only removes/adds vanilla components, it's save-safe and can be added or removed from a save at any time. Buildings whose root problems remain (low land value, missing services, high rent) can relapse and will simply be revived again on a later sweep.
 
