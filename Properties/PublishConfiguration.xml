@@ -20,7 +20,7 @@ Hate seeing abandoned husks in your city, but don't want to bulldoze them either
 - Safe to add or remove from a save at any time
 - If the underlying problem (land value, services, rent) persists, a building can relapse — this mod will simply revive it again on a later sweep
 - Condemned buildings are intentionally left alone: the game re-condemns them as long as the zoning under them is invalid, so "rescuing" them would achieve nothing. Fix the zoning instead.
-- The philosophical opposite of Auto Bulldozer — don't run both on the same city unless you want them fighting over the same buildings
+- Prefer demolition instead? That's my other mod, [Auto Bulldozer](https://mods.paradoxplaza.com/mods/151415/Windows) — the philosophical opposite of this one. Don't run both on the same city, or they'll fight over the same buildings
   </LongDescription>
   <!-- Add a 1:1 PNG (min 256x256) before publishing. -->
   <Thumbnail Value="Properties/Thumbnail.png" />
