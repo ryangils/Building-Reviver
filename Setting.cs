@@ -28,22 +28,12 @@ namespace BuildingReviver
         public bool ReviveAbandoned { get; set; }
 
         [SettingsUIDisableByCondition(typeof(Setting), nameof(IsModDisabled))]
-        [SettingsUISection(kSection, kMainGroup)]
-        public bool ReviveCondemned { get; set; }
-
-        [SettingsUIDisableByCondition(typeof(Setting), nameof(IsModDisabled))]
         [SettingsUISlider(min = 1, max = BuildingReviverSystem.kMaxSweepsPerDay, step = 1, scalarMultiplier = 1, unit = Unit.kInteger)]
         [SettingsUISection(kSection, kTimingGroup)]
         public int SweepsPerDay { get; set; }
 
         [SettingsUISection(kSection, kStatsGroup)]
         public string TotalRevived => BuildingReviverSystem.TotalRevived.ToString();
-
-        [SettingsUISection(kSection, kStatsGroup)]
-        public string TotalAbandoned => BuildingReviverSystem.TotalAbandoned.ToString();
-
-        [SettingsUISection(kSection, kStatsGroup)]
-        public string TotalCondemned => BuildingReviverSystem.TotalCondemned.ToString();
 
         [SettingsUIButton]
         [SettingsUIConfirmation]
@@ -59,7 +49,6 @@ namespace BuildingReviver
         {
             EnableMod = true;
             ReviveAbandoned = true;
-            ReviveCondemned = false;
             SweepsPerDay = 16;
         }
     }

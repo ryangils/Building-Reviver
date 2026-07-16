@@ -1,8 +1,8 @@
 # Building Reviver — Cities: Skylines II mod
 
-Automatically revives abandoned buildings (clears the status, resets condition, puts the property back on the market) and optionally rescues condemned buildings. Toggleable in Options → Mods → Building Reviver, with a master switch, adjustable sweep frequency, and per-category session counters (with a reset button).
+Automatically revives abandoned buildings: clears the status, resets condition, and puts the property back on the market. Toggleable in Options → Mods → Building Reviver, with a master switch, adjustable sweep frequency, and a session counter (with a reset button).
 
-The philosophical opposite of Auto Bulldozer: instead of tearing derelict buildings down, it gives them a second chance. The two mods can coexist — just don't enable both for the same category.
+The philosophical opposite of Auto Bulldozer: instead of tearing derelict buildings down, it gives them a second chance. Don't run both on the same city unless you want them fighting over the same buildings.
 
 ## Prerequisites (one-time)
 
@@ -38,12 +38,13 @@ Same flow as AutoBulldozer (see its `SHIPPING.md` for the detailed guide):
 
 ## How it works
 
-`BuildingReviverSystem` is an ECS system that runs during the simulation phase (1–64 sweeps per in-game day, configurable, default 16; no cost while paused or in menus). It queries buildings tagged `Abandoned` or `Condemned` (excluding destroyed buildings, temporary tool previews, and already-deleted entities) and revives them:
-
-- **Abandoned**: removes the `Abandoned` component, resets a negative `BuildingCondition` to zero (so the vanilla condition system doesn't immediately re-abandon it), and adds `PropertyToBeOnMarket` so the game's market systems list the property for new renters. An `Updated` tag nudges the game to refresh the building's visuals and state.
-- **Condemned**: removes the `Condemned` component and resets condition. If the cause persists (e.g. invalid zoning under the building), the game may condemn it again — that's intentional; the mod doesn't fight legitimate zoning changes you make.
+`BuildingReviverSystem` is an ECS system that runs during the simulation phase (1–64 sweeps per in-game day, configurable, default 16; no cost while paused or in menus). It queries buildings tagged `Abandoned` (excluding destroyed buildings, temporary tool previews, and already-deleted entities) and revives them: removes the `Abandoned` component, resets a negative `BuildingCondition` to zero (so the vanilla condition system doesn't immediately re-abandon it), and adds `PropertyToBeOnMarket` so the game's market systems list the property for new renters. An `Updated` tag nudges the game to refresh the building's visuals and state.
 
 Because it only removes/adds vanilla components, it's save-safe and can be added or removed from a save at any time. Buildings whose root problems remain (low land value, missing services, high rent) can relapse and will simply be revived again on a later sweep.
+
+## Why condemned buildings aren't handled
+
+An earlier version tried to rescue condemned buildings by removing the `Condemned` component. Decompiling the game shows this can't work. `Game.Buildings.ZoneCheckSystem` validates every building against the zone blocks under it; if validation fails it adds `Condemned`, and if validation passes **it removes `Condemned` itself**. So when the zoning is valid the game already un-condemns the building, and when it's invalid the game re-condemns it on the next pass — a loop the mod can't win. Condemnation is a zoning problem, and the fix is to correct the zoning.
 
 ## Files
 

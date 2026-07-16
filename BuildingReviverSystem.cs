@@ -9,10 +9,10 @@ using Unity.Entities;
 namespace BuildingReviver
 {
     /// <summary>
-    /// Periodically scans for abandoned / condemned buildings and revives them:
-    /// the status component is removed, the building's condition is reset so it
-    /// doesn't immediately relapse, and abandoned properties are put back on the
-    /// market so new occupants can move in.
+    /// Periodically scans for abandoned buildings and revives them: the Abandoned
+    /// component is removed, the building's condition is reset so it doesn't
+    /// immediately relapse, and the property is put back on the market so new
+    /// occupants can move in.
     /// </summary>
     public partial class BuildingReviverSystem : GameSystemBase
     {
@@ -22,22 +22,17 @@ namespace BuildingReviver
         /// <summary>Upper bound of the "sweeps per day" setting; also the system's base tick rate.</summary>
         public const int kMaxSweepsPerDay = 64;
 
-        /// <summary>Per-category revival counters since game start (shown in options UI).</summary>
-        public static int TotalAbandoned;
-        public static int TotalCondemned;
-
-        public static int TotalRevived => TotalAbandoned + TotalCondemned;
+        /// <summary>Revival counter since game start (shown in options UI).</summary>
+        public static int TotalRevived;
 
         private SimulationSystem m_SimulationSystem;
         private EntityQuery m_AbandonedQuery;
-        private EntityQuery m_CondemnedQuery;
 
         private uint m_LastSweepFrame;
 
         public static void ResetStatistics()
         {
-            TotalAbandoned = 0;
-            TotalCondemned = 0;
+            TotalRevived = 0;
         }
 
         protected override void OnCreate()
@@ -55,22 +50,6 @@ namespace BuildingReviver
                 },
                 None = new[]
                 {
-                    ComponentType.ReadOnly<Destroyed>(),
-                    ComponentType.ReadOnly<Deleted>(),
-                    ComponentType.ReadOnly<Temp>(),
-                },
-            });
-
-            m_CondemnedQuery = GetEntityQuery(new EntityQueryDesc
-            {
-                All = new[]
-                {
-                    ComponentType.ReadOnly<Building>(),
-                    ComponentType.ReadOnly<Condemned>(),
-                },
-                None = new[]
-                {
-                    ComponentType.ReadOnly<Abandoned>(),
                     ComponentType.ReadOnly<Destroyed>(),
                     ComponentType.ReadOnly<Deleted>(),
                     ComponentType.ReadOnly<Temp>(),
@@ -107,12 +86,7 @@ namespace BuildingReviver
 
             if (setting.ReviveAbandoned)
             {
-                TotalAbandoned += ReviveAbandoned();
-            }
-
-            if (setting.ReviveCondemned)
-            {
-                TotalCondemned += ReviveCondemned();
+                TotalRevived += ReviveAbandoned();
             }
         }
 
@@ -155,39 +129,6 @@ namespace BuildingReviver
             if (revived > 0)
             {
                 Mod.Log.Info($"Revived {revived} abandoned building(s). Session total: {TotalRevived + revived}.");
-            }
-
-            return revived;
-        }
-
-        private int ReviveCondemned()
-        {
-            if (m_CondemnedQuery.IsEmptyIgnoreFilter)
-            {
-                return 0;
-            }
-
-            var entities = m_CondemnedQuery.ToEntityArray(Allocator.Temp);
-            var revived = 0;
-
-            foreach (var entity in entities)
-            {
-                EntityManager.RemoveComponent<Condemned>(entity);
-                ResetCondition(entity);
-
-                if (!EntityManager.HasComponent<Updated>(entity))
-                {
-                    EntityManager.AddComponent<Updated>(entity);
-                }
-
-                revived++;
-            }
-
-            entities.Dispose();
-
-            if (revived > 0)
-            {
-                Mod.Log.Info($"Rescued {revived} condemned building(s). Session total: {TotalRevived + revived}.");
             }
 
             return revived;

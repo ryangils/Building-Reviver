@@ -2,25 +2,25 @@
   <!-- Leave empty for first publish; the toolchain fills it in and you keep it for updates. -->
   <ModId Value="" />
   <DisplayName Value="Building Reviver" />
-  <ShortDescription Value="Automatically revives abandoned buildings and rescues condemned ones instead of letting them rot." />
+  <ShortDescription Value="Automatically revives abandoned buildings instead of letting them rot." />
   <LongDescription>
 # Building Reviver
 
 Hate seeing abandoned husks in your city, but don't want to bulldoze them either? This mod brings them back to life.
 
 ## Features
-- Automatically **revives abandoned buildings**: clears the abandoned status, resets the building's condition, and puts the property back on the market so new occupants move in (on by default)
-- Optionally **rescues condemned buildings** from the wrecking ball
-- Master on/off switch and per-category toggles in Options → Mods → Building Reviver
+- Automatically **revives abandoned buildings**: clears the abandoned status, resets the building's condition, and puts the property back on the market so new occupants move in
+- Master on/off switch in Options → Mods → Building Reviver
 - **Adjustable sweep frequency** (1–64 scans per in-game day)
-- Session statistics per category, with a reset button
+- Session statistics, with a reset button
 - Lightweight: scans a few times per in-game day, no per-frame cost
 
 ## Notes
 - Revival only removes vanilla status components and resets condition, so it's save-safe
 - Safe to add or remove from a save at any time
-- If the underlying problem (land value, services, rent, invalid zoning) persists, a building can relapse — this mod will simply revive it again on a later sweep
-- Pairs well with Auto Bulldozer if you'd rather demolish some categories and revive others (don't enable both mods for the same category)
+- If the underlying problem (land value, services, rent) persists, a building can relapse — this mod will simply revive it again on a later sweep
+- Condemned buildings are intentionally left alone: the game re-condemns them as long as the zoning under them is invalid, so "rescuing" them would achieve nothing. Fix the zoning instead.
+- The philosophical opposite of Auto Bulldozer — don't run both on the same city unless you want them fighting over the same buildings
   </LongDescription>
   <!-- Add a 1:1 PNG (min 256x256) before publishing. -->
   <Thumbnail Value="Properties/Thumbnail.png" />
