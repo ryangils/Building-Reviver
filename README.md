@@ -29,12 +29,11 @@ If the build fails with missing references or import errors, `CSII_TOOLPATH` isn
 
 ## Publish to Paradox Mods (PDX Mods)
 
-Same flow as AutoBulldozer (see its `SHIPPING.md` for the detailed guide):
-
-1. Add a thumbnail: place a square PNG (at least 256×256) at `Properties/Thumbnail.png`. Optionally add screenshots and reference them in `Properties/PublishConfiguration.xml`.
-2. Review `Properties/PublishConfiguration.xml` — display name, descriptions, tags, version.
-3. In Visual Studio, right-click the **BuildingReviver** project → **Publish New Mod**. Log in with your Paradox account the first time.
-4. After the first publish, the toolchain writes your `ModId` into `PublishConfiguration.xml`. Keep it — future updates use **Publish New Version** (bump `ModVersion` and update `ChangeLog` first).
+See [PUBLISHING.md](PUBLISHING.md) — publishing is a single `dotnet publish` command per
+action (first publish / new version / listing-only update), run from a terminal with the
+game closed. A square PNG thumbnail at `Properties/Thumbnail.png` is required, and after
+the first publish you copy the printed Mod ID into `PublishConfiguration.xml` yourself.
+This mod was first published exactly that way (ModId 151484).
 
 ## How it works
 
