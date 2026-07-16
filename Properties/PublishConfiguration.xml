@@ -1,6 +1,6 @@
 <Publish>
   <!-- Leave empty for first publish; the toolchain fills it in and you keep it for updates. -->
-  <ModId Value="" />
+  <ModId Value="151484" />
   <DisplayName Value="Building Reviver" />
   <ShortDescription Value="Automatically revives abandoned buildings instead of letting them rot." />
   <LongDescription>
