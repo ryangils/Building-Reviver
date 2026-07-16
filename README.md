@@ -1,6 +1,6 @@
 # Building Reviver — Cities: Skylines II mod
 
-Automatically revives abandoned buildings: clears the status, resets condition, and puts the property back on the market. Toggleable in Options → Mods → Building Reviver, with a master switch, adjustable sweep frequency, and a session counter (with a reset button).
+Automatically revives abandoned buildings: clears the status and resets condition, and the game re-lists the property for new occupants. Toggleable in Options → Mods → Building Reviver, with a master switch, adjustable sweep frequency, and a session counter (with a reset button).
 
 The philosophical opposite of Auto Bulldozer: instead of tearing derelict buildings down, it gives them a second chance. Don't run both on the same city unless you want them fighting over the same buildings.
 

@@ -29,7 +29,7 @@ namespace BuildingReviver
                 { m_Setting.GetOptionDescLocaleID(nameof(Setting.EnableMod)), "Master switch. When off, no buildings are revived automatically." },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ReviveAbandoned)), "Revive abandoned buildings" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ReviveAbandoned)), "Clears the abandoned status, resets the building's condition, and puts the property back on the market so new occupants can move in. If the underlying problem (land value, services, rent) persists, the building can be abandoned again." },
+                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ReviveAbandoned)), "Clears the abandoned status and resets the building's condition; the game then puts the property back on the market so new occupants can move in. If the underlying problem (land value, services, rent) persists, the building can be abandoned again." },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.SweepsPerDay)), "Sweeps per in-game day" },
                 { m_Setting.GetOptionDescLocaleID(nameof(Setting.SweepsPerDay)), "How often the mod scans the city for buildings to revive. Higher values rescue buildings sooner; lower values batch the work up." },
