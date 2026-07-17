@@ -26,7 +26,7 @@ Hate seeing abandoned husks in your city, but don't want to bulldoze them either
   <!-- Add a 1:1 PNG (min 256x256) before publishing. -->
   <Thumbnail Value="Properties/Thumbnail.png" />
   <Tag Value="Code Mod" />
-  <ForumLink Value="" />
+  <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/building-reviver.1935097/" />
   <ModVersion Value="1.0.0" />
   <GameVersion Value="1.6.*" />
   <ChangeLog>
